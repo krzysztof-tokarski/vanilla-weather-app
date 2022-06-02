@@ -9,6 +9,20 @@
   <title>Vanilla Weather App</title>
 </head>
 <body>
-  
+  <header>
+    Vanilla Weather App 
+  </header>
+  <main>
+    <div id="form-container">
+      <form id="weather-form">
+        <div class="form-field">
+          <label for="city">Enter your city</label>
+          <span class="tip">Minimum 3 letters</span>
+          <input pattern="[a-zA-Z]+" minlength="3" class="form-control" type="text" name="city" id="city" >
+        </div>
+        <button disabled id="submit-button" type="button">Submit form</button>
+      </form>
+    </div>
+  </main>
 </body>
 </html>

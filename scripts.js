@@ -1,8 +1,14 @@
+const submitButton = document.getElementById('submit-button');
+const weatherForm = document.getElementById('weather-form');
+const cityInput = document.getElementById('city');
+
 const API_KEY = '033fa64bd3ded1f74b129892183b79f2';
-let city = 'Paris';
-let countryCode = '';
+let city = '';
+// let city = 'Paris';
+// let countryCode = '';
+// TODO
 let currentCity = {
-  name: '',
+  cityName: '',
   countryCode: '',
   temperature: {
     feelsLike: '',
@@ -25,7 +31,7 @@ let currentCity = {
 
 function mapResponseData(response) {
   return currentCity = {
-    name: response.name,
+    cityName: response.name,
     countryCode: response.sys.country,
     temperature: {
       feelsLike: response.main.feels_like,
@@ -46,18 +52,43 @@ function mapResponseData(response) {
   };
 };
 
+function prepareShowcase() {
+  // TODO
+}
 
-
-
-async function fetchCityWeatherData() {
-  const pull = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`);
+async function fetchCityWeatherData(cityInputValue) {
+  const pull = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityInputValue}&appid=${API_KEY}`);
   const response = await pull.json();
-  mapResponseData(response);
+  if  (response.length > 0) {
+    mapResponseData(response);
+
+  } else {
+    return alert("xD");
+    // TODO
+  }
 };
 
+weatherForm.addEventListener('input', () => {
+
+  const formValidityState = weatherForm.checkValidity();
+
+  if (!formValidityState) {
+    submitButton.disabled = true;
+  } else {
+    submitButton.disabled = false;
+  }
+});
+
+submitButton.addEventListener('click', async () => {
+  const cityInputValue = cityInput.value;
+  await fetchCityWeatherData(cityInputValue);
+})
 
 
-fetchCityWeatherData();
+
+
+// const fluidContainer = document.getElementById('fluid-container');
+
 
 
 
