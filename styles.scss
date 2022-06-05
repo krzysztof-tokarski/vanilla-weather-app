@@ -20,23 +20,48 @@ body {
     text-align: center;
   }
 
-  #form-container {
-    #weather-form {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
+  main {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 
-      .form-field {
+    #form-container {
+      #weather-form {
         display: flex;
         flex-direction: column;
-        align-items: center;
-        gap: 10px;
-
-        .tip {
-          color: gray;
-          font-size: 70%;
+        gap: 20px;
+  
+        .form-field {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 10px;
+  
+          .tip {
+            color: gray;
+            font-size: 70%;
+          }
+  
+          #city {
+            padding: 5px;
+          }
         }
       }
     }
+
+    #showcase {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+
+      div {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        align-items: center;
+      }
+    }
   }
+
 }
