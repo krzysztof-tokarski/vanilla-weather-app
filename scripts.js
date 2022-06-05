@@ -53,7 +53,12 @@ function mapResponseData(response) {
   };
 };
 
-function prepareShowcase() {
+async function prepareShowcase() {
+  const currentShowcase = document.querySelector('#showcase');
+  if (currentShowcase) {
+    currentShowcase.remove();
+  }
+
   const showcase = document.createElement('div');
   showcase.setAttribute('id', 'showcase');
   
@@ -93,10 +98,13 @@ function prepareShowcase() {
   const description = document.createElement('p');
   weatherInfoHeader.textContent = 'WEATHER INFO';
   description.textContent = `Weather description: ${currentCity.weather.description}`;
-  // const icon = 
+  const icon = document.createElement('img');
+  icon.src = await fetchIcon(currentCity.weather.icon);
+
   // TODO
   weatherInfo.appendChild(weatherInfoHeader);
   weatherInfo.appendChild(description);
+  weatherInfo.appendChild(icon);
 
 
   const windInfo = document.createElement('div');
@@ -123,7 +131,6 @@ function prepareShowcase() {
 async function fetchCityWeatherData(cityInputValue) {
   const pull = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityInputValue}&appid=${API_KEY}`);
   const response = await pull.json();
-  console.log(response);
 
   if  (response.cod === 200) {
     mapResponseData(response);
@@ -134,6 +141,14 @@ async function fetchCityWeatherData(cityInputValue) {
   }
 };
 
+async function fetchIcon(iconCode) {
+  const response = await fetch(`https://openweathermap.org/img/w/${iconCode}.png`);
+  if  (response.status === 200) {
+    return response.url;
+  } else {
+    console.log(response)
+  }
+}
 weatherForm.addEventListener('input', () => {
   const formValidityState = weatherForm.checkValidity();
 
